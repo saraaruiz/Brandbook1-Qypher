@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Qypher · Brandbook</title>
+<meta name="description" content="Brandbook de Qypher: voz, color, logotipo, tipografía y decisión del logo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --chispa:#FC8017; --brasa:#E44A03;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --pad:clamp(20px,6vw,120px);
+  --f-title:'Outfit',system-ui,sans-serif; --f-text:'Inter',system-ui,sans-serif;
+  --glass:rgba(255,255,255,.09); --glass-b:rgba(255,255,255,.2); --glass-on:rgba(255,255,255,.17);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity;background:#000}
+body{font-family:var(--f-text);color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.55}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit}
+:focus-visible{outline:2px solid var(--chispa);outline-offset:3px;border-radius:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.mut{opacity:.74}
+
+/* Vidrio: una sola receta para todos los elementos interactivos */
+.pill,.chip,.trait,.opt,.note,.acc,.sw,.tag,.field{
+  background:var(--glass);border:1px solid var(--glass-b);
+  -webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
+
+/* ---------- Fondo cinematográfico: degradado de marca en movimiento ---------- */
+.bg{position:fixed;inset:0;z-index:-2;background:#000;overflow:hidden}
+.bg i{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform,opacity;transition:left 1.6s var(--ease),top 1.6s var(--ease),opacity 1.6s var(--ease)}
+.bg .b1{width:70vmax;height:70vmax;background:radial-gradient(circle,#FC8017 0%,rgba(252,128,23,0) 65%);left:var(--x1,40%);top:var(--y1,-20%)}
+.bg .b2{width:60vmax;height:60vmax;background:radial-gradient(circle,#E44A03 0%,rgba(228,74,3,0) 65%);left:var(--x2,-10%);top:var(--y2,40%)}
+.bg .b3{width:45vmax;height:45vmax;background:radial-gradient(circle,#FFD9B0 0%,rgba(255,217,176,0) 65%);left:var(--x3,70%);top:var(--y3,60%);opacity:var(--o3,.35)}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000 0%,rgba(0,0,0,.55) 38%,rgba(0,0,0,0) 100%);opacity:var(--veil,.55);transition:opacity 1.6s var(--ease)}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.12;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* ---------- Navegación ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#fff,#FC8017 30%,#E44A03 60%,#000);z-index:60;transition:transform .6s var(--ease)}
+.top{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(16px + env(safe-area-inset-top)) var(--pad) 12px;pointer-events:none}
+.top>*{pointer-events:auto}
+.where{font:600 15px/1 var(--f-text);display:flex;gap:10px;align-items:baseline}
+.where span{font-weight:400;opacity:.72}
+.top-r{display:flex;gap:12px;align-items:center}
+.count{font:500 14px/1 var(--f-text);opacity:.78;font-variant-numeric:tabular-nums}
+.pill{font:600 14px/1 var(--f-text);padding:12px 18px;border-radius:999px;min-height:44px;transition:background-color .3s,transform .3s var(--ease);display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.pill:hover{background:var(--glass-on)}
+.pill[disabled]{opacity:.3;pointer-events:none}
+.dots{position:fixed;right:clamp(8px,1.6vw,24px);top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column}
+.dots button{position:relative;width:30px;height:28px;display:grid;place-items:center}
+.dots button::before{content:"";width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);transition:all .5s var(--ease)}
+.dots button[aria-current="true"]::before{background:var(--chispa);height:22px;border-radius:6px}
+.dots button span{position:absolute;right:36px;white-space:nowrap;font:500 13px/1 var(--f-text);padding:9px 12px;border-radius:999px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transform:translateX(8px);transition:all .3s var(--ease);pointer-events:none}
+.dots button:hover span,.dots button:focus-visible span{opacity:1;transform:none}
+.nav-b{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:8px;align-items:center}
+.nav-b .pill{background:rgba(20,10,5,.62);-webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%)}
+.nav-b .pill[disabled]{opacity:0}
+
+.menu{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.78);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);display:grid;align-content:center;padding:90px var(--pad) 40px;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s}
+.menu.open{opacity:1;visibility:visible}
+.menu h2{font:600 15px var(--f-text);opacity:.7;margin-bottom:18px}
+.menu ol{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));column-gap:40px;max-width:1100px}
+.menu a{display:flex;gap:16px;align-items:baseline;padding:10px 0;text-decoration:none;color:#fff;font:600 clamp(22px,2.8vw,34px)/1.2 var(--f-title);transition:color .25s}
+.menu a small{font:500 14px var(--f-text);opacity:.55;min-width:22px}
+.menu a:hover,.menu a[aria-current="true"]{color:var(--chispa)}
+.menu .close{position:absolute;top:calc(16px + env(safe-area-inset-top));right:var(--pad)}
+
+/* ---------- Secciones ---------- */
+section{min-height:100vh;min-height:100svh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:96px var(--pad) 120px;position:relative}
+h1,h2,h3{font-family:var(--f-title);font-weight:700;line-height:1.04;letter-spacing:-.015em}
+h2.t{font-size:clamp(32px,4.8vw,68px)}
+.lead{font-size:clamp(17px,1.5vw,21px);line-height:1.55;max-width:58ch;opacity:.92}
+.label{font:600 15px/1.2 var(--f-text);margin-bottom:10px}
+.rv{opacity:0;transform:translateY(30px);filter:blur(8px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);transition-delay:calc(var(--d,0)*100ms)}
+.rv.on{opacity:1;transform:none;filter:none}
+.lm{display:block;overflow:hidden;padding-bottom:.06em}
+.lm>span{display:block;transform:translateY(108%);transition:transform 1.1s var(--ease);transition-delay:calc(var(--d,0)*115ms)}
+.lm.on>span{transform:none}
+.logo{fill:currentColor;display:block;width:100%;height:auto}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:999px;background:var(--chispa);color:#000;font:600 16px/1 var(--f-text);min-height:52px;white-space:nowrap;transition:transform .4s var(--ease),box-shadow .4s,opacity .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(252,128,23,.32)}
+.btn[disabled]{opacity:.35;pointer-events:none}
+.tag{display:inline-block;margin-bottom:16px;padding:8px 14px;border-radius:999px;font:600 14px/1 var(--f-text)}
+.note{margin-top:22px;padding:16px 20px;border-radius:18px;font-size:15.5px;line-height:1.55}
+.note b{font-weight:600}
+
+/* 1 portada */
+#portada h1{font-size:clamp(54px,12.5vw,210px);letter-spacing:-.03em;line-height:.94}
+#portada .meta{margin-top:26px;font:500 clamp(17px,1.7vw,24px)/1.4 var(--f-text);opacity:.92}
+#portada .sub{margin-top:8px;font-size:clamp(15px,1.3vw,18px);opacity:.7}
+#portada .foot{margin-top:44px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+#portada .mini{width:clamp(110px,12vw,170px)}
+
+/* 2 voz */
+.voz{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,90px);align-items:center}
+.voz h2.t{font-size:clamp(40px,7vw,104px)}
+.voz h2.t em{font-style:normal;color:var(--chispa)}
+.quote{margin-top:28px;font:600 clamp(20px,2.2vw,29px)/1.28 var(--f-title);max-width:28ch}
+.traits{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.trait{padding:16px 10px;border-radius:999px;font:600 16px var(--f-title);text-align:center;transition:all .4s var(--ease);min-height:56px}
+.trait:hover{background:var(--glass-on);transform:translateY(-2px)}
+.trait[aria-pressed="true"]{background:var(--chispa);color:#000;border-color:var(--chispa);box-shadow:0 10px 36px rgba(252,128,23,.3)}
+.trait-d{margin-top:16px;min-height:3.3em;font-size:clamp(17px,1.6vw,21px);padding:18px 22px;border-radius:22px;background:rgba(0,0,0,.34);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.trait-d.swap{animation:sw .6s var(--ease)}
+@keyframes sw{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.method{margin-top:20px;font-size:14.5px;opacity:.7;max-width:46ch}
+.hintx{margin-bottom:12px;font-size:14.5px;opacity:.72}
+
+/* 3 color */
+.grad{height:clamp(90px,17vh,180px);border-radius:28px;background:linear-gradient(90deg,#fff 0%,#F37B0E 24%,#C81F05 50%,#5A0D00 76%,#000 100%);box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.grad-cap{max-width:72ch;margin:22px 0 28px;font-size:clamp(15px,1.4vw,18px);opacity:.9}
+.sw-g{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sw{border-radius:22px;aspect-ratio:1.3;padding:18px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;transition:transform .5s var(--ease);overflow:hidden;width:100%}
+.sw:hover{transform:translateY(-5px)}
+.sw .hex{font:700 clamp(18px,2vw,28px) var(--f-title)}
+.sw .rgb{font:500 12.5px var(--f-text);opacity:.85;margin-top:2px;display:block}
+.sw .ratio{font:600 12px var(--f-text);padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.22);align-self:flex-start}
+.sw.l .ratio{background:rgba(0,0,0,.08)}
+.sw-n{margin-top:12px}.sw-n b{display:block;font:600 16px var(--f-title)}.sw-n span{display:block;font-size:14px;opacity:.78;line-height:1.45;margin-top:3px}
+
+/* propuestas y versiones: escenario + probar sobre */
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,4vw,70px);align-items:center}
+.stage{border-radius:30px;height:clamp(240px,46vh,440px);display:grid;place-items:center;transition:background .9s var(--ease),color .7s var(--ease);position:relative;overflow:hidden}
+.stage .logo,.stage img{width:min(62%,640px);height:auto;display:block}
+.stage .iso{width:min(30%,240px)}
+.stage img{transition:filter .6s}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.ctl .label{margin:0 6px 0 0;font-weight:500;opacity:.75;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;font:600 14px var(--f-text);min-height:44px;transition:all .3s var(--ease)}
+.chip i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(128,128,128,.6);flex:none}
+.chip:hover{background:var(--glass-on)}
+.chip[aria-pressed="true"]{background:#fff;color:#000;border-color:#fff}
+.why p{font-size:clamp(16px,1.4vw,19px);line-height:1.62}
+.why p+p{margin-top:14px}
+.why h2.t{font-size:clamp(30px,3.8vw,54px);margin-bottom:18px}
+.why .go{margin-top:20px}
+.vcap{margin-top:16px;font-size:15.5px;min-height:3em}
+.vcap b{font-weight:600}
+
+/* 7 tipografía */
+.fam{display:grid;grid-template-columns:1fr 64px 1fr;align-items:start;margin-top:22px}
+.fam .col{padding:0 clamp(8px,2vw,34px)}
+.aa{font-size:clamp(76px,11vw,170px);line-height:.92;letter-spacing:-.04em}
+.aa.o{font-family:var(--f-title);font-weight:700}.aa.i{font-family:var(--f-text);font-weight:600}
+.plus{align-self:center;width:56px;height:56px;border-radius:50%;background:#fff;color:var(--brasa);display:grid;place-items:center;font:700 30px var(--f-title)}
+.fam h3{font-size:clamp(26px,3.2vw,44px);margin:4px 0 4px}
+.fam h3.i{font-family:var(--f-text);font-weight:600}
+.fam .pw{font-size:15px;opacity:.82;margin-bottom:10px}
+.fam .sus{font-size:clamp(15px,1.25vw,17px);max-width:44ch;opacity:.92}
+.live{margin-top:16px;padding:14px 18px;border-radius:18px;background:rgba(0,0,0,.34);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);word-break:break-word;min-height:64px;display:flex;align-items:center}
+.live.o{font:600 30px/1.15 var(--f-title)}.live.i{font:400 18px/1.5 var(--f-text)}
+.tester{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.tester .label{margin:0;font-weight:500;opacity:.78;font-size:14.5px}
+.field{flex:1;min-width:220px;max-width:560px;color:#fff;padding:14px 20px;border-radius:999px;font:500 17px var(--f-text);min-height:48px}
+.field::placeholder{color:rgba(255,255,255,.55)}
+.lic{margin-top:16px;font-size:12.5px;opacity:.6}
+
+/* 8 jerarquía */
+.hier{display:grid;grid-template-columns:.8fr 1.4fr;grid-template-rows:auto 1fr;column-gap:clamp(28px,5vw,80px);row-gap:22px;align-items:start}
+.h-left{grid-column:1;grid-row:1}
+.hier .accs{grid-column:2;grid-row:1/3}
+.hier .leg{grid-column:1;grid-row:2;margin-top:0;align-self:start}
+.rules{list-style:none;margin-top:12px;display:grid;gap:14px;font-size:clamp(15px,1.3vw,18px)}
+.rules li{display:grid;grid-template-columns:30px 1fr;gap:12px}
+.rules b{font:700 26px/1 var(--f-title);color:var(--chispa)}
+.thr{margin-top:28px;display:flex;align-items:baseline;gap:14px}
+.thr b{font:700 clamp(72px,9vw,124px)/.85 var(--f-title);color:var(--chispa)}
+.thr span{font-size:15px;opacity:.85;max-width:16ch}
+.accs{display:grid;gap:8px}
+.acc{border-radius:20px;overflow:hidden;transition:background-color .35s}
+.acc[data-open="true"]{background:var(--glass-on)}
+.acc-h{width:100%;display:flex;align-items:center;gap:14px;padding:12px 20px;min-height:52px;flex-wrap:wrap}
+.acc-h b{font:600 17px var(--f-title);flex:1;min-width:110px}
+.acc-h span{font-size:14px;opacity:.75}
+.acc-h::after{content:"";width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .4s var(--ease);opacity:.7;margin-left:4px}
+.acc[data-open="true"] .acc-h::after{transform:rotate(-135deg) translateY(-2px)}
+.acc-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.acc[data-open="true"] .acc-p{grid-template-rows:1fr}
+.acc-p>div{overflow:hidden}
+.acc-in{padding:4px 20px 20px}
+.acc-in .s{line-height:1.12;word-break:break-word}
+.acc-in .u{margin-top:12px;font-size:14px;opacity:.72}
+.s.o{font-family:var(--f-title)}.s.i{font-family:var(--f-text)}
+.cut{font-size:13.5px;opacity:.72;padding:4px 20px}
+.cut b{color:var(--chispa);font-weight:600}
+.leg{padding:16px 20px;border-radius:20px}
+.leg-h{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.leg input[type=range]{width:100%;accent-color:var(--chispa);height:32px;margin-top:4px}
+.badge{padding:7px 13px;border-radius:999px;background:var(--chispa);color:#000;font:600 13px var(--f-text)}
+.leg-s{min-height:60px;display:flex;align-items:flex-end;line-height:1.12;transition:font-size .15s}
+
+/* 9 decisión */
+.who{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:22px}
+.who .label{margin:0 6px 0 0;font-weight:500;opacity:.78;font-size:14.5px}
+.dec{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.opt{position:relative;border-radius:28px;padding:24px 26px 26px;text-align:left;transition:all .5s var(--ease);display:flex;flex-direction:column;gap:8px}
+.opt:hover{transform:translateY(-3px);background:var(--glass-on)}
+.opt .lg{height:46px;display:flex;align-items:center;margin-bottom:8px}
+.opt .lg .logo,.opt .lg img{height:38px;width:auto;max-width:100%}
+.opt .pn{font:600 14.5px var(--f-text);opacity:.75}
+.opt .N{font:700 clamp(24px,2.5vw,34px)/1.1 var(--f-title)}
+.opt .D{font-size:16px;line-height:1.5;opacity:.92;max-width:46ch}
+.opt .D b{font-weight:600}
+.opt .ck{position:absolute;top:22px;right:22px;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:grid;place-items:center;transition:all .4s var(--ease)}
+.opt[aria-pressed="true"]{background:rgba(252,128,23,.2);border-color:var(--chispa);box-shadow:0 0 0 1px var(--chispa),0 30px 70px rgba(228,74,3,.25);transform:translateY(-3px)}
+.opt[aria-pressed="true"] .ck{background:var(--chispa);border-color:var(--chispa)}
+.opt[aria-pressed="true"] .ck::after{content:"✓";color:#000;font:700 15px var(--f-text)}
+.cm{margin-top:16px;display:grid;gap:10px}
+.cm textarea{width:100%;max-width:none;min-height:96px;resize:vertical;color:#fff;border-radius:22px;padding:16px 20px;font:400 16px/1.5 var(--f-text)}
+.cm textarea::placeholder{color:rgba(255,255,255,.55)}
+.act{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ok{display:none;padding:16px 20px;border-radius:20px;background:rgba(0,0,0,.4);border:1px solid var(--chispa);font-size:15px}
+.ok.show{display:block;animation:sw .6s var(--ease)}
+.ok pre{margin-top:8px;white-space:pre-wrap;font:400 14px/1.5 var(--f-text);opacity:.9}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,16px);padding:12px 18px;border-radius:999px;background:#fff;color:#000;font:600 14px var(--f-text);opacity:0;pointer-events:none;transition:all .4s var(--ease);z-index:90}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Móvil ---------- */
+@media (max-width:900px){
+  html{scroll-snap-type:none}
+  .voz,.two,.hier,.dec{grid-template-columns:1fr}
+  .hier{grid-template-rows:auto}.h-left,.hier .accs,.hier .leg{grid-column:1;grid-row:auto}
+  .top{background:rgba(0,0,0,.3);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%)}
+  .where span,.dots{display:none}
+  section{padding:88px var(--pad) 118px}
+  #portada h1{font-size:clamp(50px,17vw,110px)}
+  #portada .foot{margin-top:32px}
+  .voz h2.t{font-size:clamp(44px,13vw,72px)}
+  .traits{grid-template-columns:1fr 1fr}
+  .sw-g{grid-template-columns:1fr 1fr}.sw{aspect-ratio:1.15}
+  .stage{height:clamp(210px,30svh,300px);border-radius:24px}
+  .stage .logo,.stage img{width:70%}
+  .stage .iso{width:34%}
+  .fam{grid-template-columns:1fr;gap:26px}.fam .col{padding:0}.plus{display:none}
+  .aa{font-size:96px}
+  .field{max-width:none}
+  .thr b{font-size:84px}
+  .acc-h{padding:12px 16px}.acc-in{padding:2px 16px 16px}
+  .opt{padding:22px 20px}.opt .D{font-size:15.5px}
+  .act{display:grid}.act .btn,.act .pill{justify-content:center}
+  .toast{bottom:92px}
+  .menu{padding:92px var(--pad) 30px}.menu a{font-size:26px}
+  .nav-b .pill{padding:12px 20px}
+}
+@media (hover:none){.trait:hover,.opt:hover,.sw:hover,.btn:hover{transform:none;box-shadow:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;transition-delay:0ms!important}
+  .rv,.lm>span{opacity:1!important;transform:none!important;filter:none!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<g id="qy"><path d="M1.20883 139.191C6.96452 78.1204 53.6058 25.312 111.803 8.05035C160.768 -6.47299 201.155 -1.09434 246.026 22.1533L246.345 22.4334C249.242 24.9438 253.226 27.0934 256.359 29.4841C259.91 32.1932 263.05 35.2474 266.383 38.1938C294.244 62.8208 309.442 95.2163 312.808 132.158C315.315 159.665 307.258 199.092 291.549 222.173C283.315 216.016 252.999 187.888 246.559 179.839C253.088 151.681 254.9 129.414 239.227 103.651C219.667 71.5828 188.049 57.5746 151.338 61.207C85.3782 67.7331 39.9182 145.074 78.4321 202.784C102.503 238.851 140.672 249.142 181.143 239.374C188.058 242.713 223.582 277.537 230.158 284.519C200.204 304.325 156.106 308.995 121.377 301.921C81.8046 293.747 47.0609 270.282 24.7004 236.63C9.21495 213.272 0.656867 186.009 0.0159133 157.994C-0.0685585 153.925 0.172608 144.045 0.996046 140.08C1.0573 139.782 1.12823 139.485 1.20883 139.191Z"/><path d="M1.20898 139.191C6.96467 78.1204 53.606 25.312 111.803 8.05035C160.768 -6.47299 201.155 -1.09434 246.026 22.1533C227.175 28.6717 203.275 32.0024 183.654 36.9359C177.501 38.4833 170.283 38.4981 164.112 40.5832C154.75 42.4968 146.351 45.9545 137.364 48.7159C125.152 52.4683 117.402 60.3463 106.32 65.8176C91.9355 73.4158 74.4473 78.2926 60.3541 86.2738C48.0418 93.2472 34.7462 110.756 24.2427 120.387C15.5724 128.338 10.0501 134.933 2.55473 143.494C1.28572 141.74 2.2162 141.327 1.20898 139.191Z"/><path d="M320.455 124.683C308.556 90.3383 305.313 89.1081 343.666 90.0778C349.402 90.2229 355.419 89.7309 358.934 94.8321C361.102 96.8559 397.498 184.425 402.113 194.485C410.758 169.575 422.204 143.324 432.28 118.84C433.168 116.682 439.012 102.878 439.797 101.661C440.983 97.2576 444.21 90.9488 449.338 90.7773C457.321 90.5111 488.758 87.905 493.709 92.8669C498.596 98.6012 490.13 115.173 487.425 121.567C470.04 162.667 453.086 203.963 435.071 244.795C426.054 264.922 413.002 286.451 395.482 300.115C372.788 317.567 344.107 325.325 315.709 321.691C301.125 319.771 287.113 314.792 274.588 307.081C260.238 298.092 247.531 284.849 235.239 273.251C219.975 259.076 204.87 244.73 189.924 230.218C179.044 219.811 167.148 209.276 157.013 198.308C147.367 187.869 153.539 166.986 169.344 166.399C182.267 165.919 195.313 165.757 208.223 166.392C220.519 167.092 225.752 176.856 233.16 183.396C246.749 195.393 258.488 208.747 271.556 221.099C284.592 233.42 303.097 255.478 318.432 263.479C332.251 270.689 350.665 269.206 363.44 259.612C368.266 256.026 372.445 251.644 375.799 246.654C369.302 239.076 363.475 231.173 359.54 221.93C346.19 190.568 328.966 157.728 320.455 124.683Z"/></g>
+<g id="rest"><path d="M490.281 129.766C490.962 127.902 492.528 125.297 493.61 123.485C506.455 101.989 525.734 90.1493 549.362 83.7368C576.873 76.2714 601.815 81.7897 625.996 96.0816C645.128 107.063 658.404 128.496 664.06 149.463C670.127 172.712 666.749 197.417 654.658 218.182C636.796 249.172 603.266 265.113 567.846 263.079C552.582 262.202 542.932 258.486 529.222 252.127L529.387 290.37C529.527 329.307 528.432 319.723 491.304 321.254C488.341 321.376 480.381 320.113 479.313 317.89C476.132 311.279 477.157 293.798 477.171 286.883L477.224 247.078C477.24 220.262 476.926 192.741 478.47 165.959C478.893 158.62 486.301 134.404 490.281 129.766ZM576.815 214.832C592.123 213.527 605.548 204.094 611.971 190.135C618.387 176.177 616.807 159.845 607.838 147.374C598.862 134.903 583.876 128.217 568.6 129.868C545.345 132.382 528.444 153.135 530.695 176.411C532.945 199.688 553.509 216.82 576.815 214.832Z" fill-rule="evenodd"/><path d="M673.422 39.7471C673.183 20.1786 676.24 5.66473 700.279 5.41399C718.65 5.22231 725.388 14.6759 725.272 32.3591C725.246 35.4861 725.201 38.613 725.13 41.74C725.124 46.8425 724.479 90.3474 725.685 91.2326C725.795 91.3132 725.917 91.3635 726.04 91.4292C734.364 84.0818 756.262 79.5493 767.34 80.5525C788.981 82.5125 804.424 87.7884 821.338 101.051C822.279 102.674 825.078 104.116 826.548 105.508C837.691 116.06 844.745 129.573 849.194 144.156C852.347 153.919 852.521 163.589 852.528 173.747C852.547 198.812 853.037 223.955 852.67 249.013C852.638 251.241 851.696 259.19 849.588 260.118C840.315 264.188 827.851 261.752 817.862 262.311C810.357 262.695 801.419 261.45 801.258 252.494C800.774 225.174 801.884 197.459 801.406 170.083C800.065 122.008 733.784 118.591 725.485 165.008C723.847 174.195 724.763 187.412 724.789 197.029L724.918 237.482C724.969 249.12 727.394 262.988 710.996 262.366C701.44 262.197 690.194 262.713 680.805 262.015C668.534 261.103 672.442 235.899 672.552 227.366L672.726 184.979L673.422 39.7471Z"/><path d="M871.634 125.792C874.652 118.726 886.704 105.984 892.707 100.698C926.302 71.117 989.849 72.1924 1019.47 107.701C1025.69 111.826 1035.15 129.415 1036.82 137.184C1042.92 165.554 1018.49 170.239 999.303 177.928C973.697 188.066 947.846 197.598 921.788 206.514C937.232 216.482 947.723 221.619 967.01 217.457C972.465 216.292 977.714 214.301 982.576 211.556C989.424 207.725 1002.98 195.34 1009.46 200.449C1012.81 203.087 1024.5 220.492 1025.64 225.793C1026.48 229.676 1025.76 234.498 1023.33 237.678C993.828 270.098 935.865 272.926 900.367 248.861C880.32 235.27 865.096 212.103 860.098 188.486C856.229 170.167 860.975 141.291 871.634 125.792ZM908.357 175.489C917.455 170.969 926.251 166.996 935.304 162.623C951.914 154.852 970.124 147.217 986.29 139.471C976.192 129.96 963.173 123.533 948.929 126.041C933.073 128.936 920.099 137.825 913.109 152.787C909.55 160.398 909.066 167.294 908.357 175.489Z" fill-rule="evenodd"/><path d="M1062.12 118.568C1079.87 87.1157 1125.38 75.6091 1158.41 82.041C1169.05 84.1145 1165.47 94.7784 1163.71 101.647C1161.26 111.1 1159.46 123.872 1150.7 128.893C1144.19 132.623 1138.37 131.869 1131.37 132.873C1115.84 135.103 1105.34 144.35 1101.57 159.615C1100.09 165.6 1100.5 175.376 1100.5 181.815V229.681C1100.5 236.99 1101.31 245.156 1100.26 252.345C1099.86 255.058 1098.81 259.353 1096.36 260.886C1093.09 262.923 1059.47 262.927 1055.14 261.762C1052.97 261.176 1051.59 260.186 1050.45 258.226C1049.03 255.747 1048.52 252.754 1048.34 249.932C1047.39 235.817 1048.55 220.998 1048.66 206.813C1048.79 191.063 1047.94 174.926 1049.13 159.237C1049.63 152.704 1050.81 146.242 1052.64 139.953C1054.22 134.483 1058.76 122.609 1062.12 118.568Z"/></g>
+</defs></svg>
+
+<div class="bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="where"><b>Qypher</b><span id="whereT">Brandbook</span></div>
+  <div class="top-r">
+    <span class="count" id="count" aria-live="polite">01 / 09</span>
+    <button class="pill" id="menuBtn" aria-haspopup="dialog" aria-controls="menu">Índice</button>
+  </div>
+</header>
+
+<nav class="dots" id="dots" aria-label="Páginas"></nav>
+<div class="nav-b" role="group" aria-label="Anterior y siguiente">
+  <button class="pill" id="prev" aria-label="Página anterior">← Anterior</button>
+  <button class="pill" id="next" aria-label="Página siguiente">Siguiente →</button>
+</div>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Índice del brandbook">
+  <button class="pill close" id="menuClose">Cerrar ✕</button>
+  <h2>Índice</h2>
+  <ol id="menuList"></ol>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<main>
+
+<!-- 1 PORTADA -->
+<section id="portada" data-title="Portada">
+  <h1><span class="lm"><span style="--d:1">BRAND</span></span><span class="lm"><span style="--d:2">BOOK</span></span></h1>
+  <p class="meta rv" style="--d:4">Voz · Color · Logotipo · Tipografía · Decisión del logo</p>
+  <p class="sub rv" style="--d:4">Al final les pedimos elegir entre dos propuestas de logo.</p>
+  <div class="foot rv" style="--d:5">
+    <svg class="logo mini" viewBox="0 -8 1166 332" role="img" aria-label="Qypher"><use href="#qy"/><use href="#rest"/></svg>
+    <button class="btn" data-go="1">Empezar <span aria-hidden="true">→</span></button>
+    <span class="mut">Qypher · 2026</span>
+  </div>
+</section>
+
+<!-- 2 VOZ -->
+<section id="voz" data-title="Voz y tono">
+  <div class="voz">
+    <div>
+      <h2 class="t"><span class="lm"><span style="--d:0">Cuestiona.</span></span><span class="lm"><span style="--d:1">Cocrea.</span></span><span class="lm"><span style="--d:2"><em>Comparte.</em></span></span></h2>
+      <p class="lead rv" style="--d:3;margin-top:24px">Qypher habla como quien enseña: cerca, con claridad y con criterio. Acompaña a equipos que ya usan IA para que lo hagan con las mismas reglas. Sin miedo y sin urgencia.</p>
+      <p class="quote rv" style="--d:4">El equipo no es ignorante, está desalineado: todos usan IA, cada uno a su manera.</p>
+    </div>
+    <div class="rv" style="--d:3">
+      <div class="hintx">Rasgos de voz. Toca uno.</div>
+      <div class="traits" id="traits" role="group" aria-label="Rasgos de voz"></div>
+      <p class="trait-d" id="traitD" aria-live="polite"></p>
+      <p class="method">Cada pieza sigue el mismo método: lo que vemos, hacia dónde llevamos a los equipos y nuestro método.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 COLOR -->
+<section id="color" data-title="Color">
+  <h2 class="t rv" style="--d:0;font-size:clamp(30px,4vw,56px);margin-bottom:22px">Paleta de color</h2>
+  <div class="grad rv" style="--d:1" role="img" aria-label="Degradado de Qypher: blanco, naranja, rojo, negro"></div>
+  <p class="grad-cap rv" style="--d:2">El naranja es el color con el que Qypher se diferencia: energía y calidez en un sector dominado por azules y morados. El degradado lo pone en movimiento, de la luz al calor profundo y al negro, como la energía mínima que provoca un cambio. Se usa como fondo y atmósfera, no como relleno de texto.</p>
+  <div class="sw-g" id="swG"></div>
+</section>
+
+<!-- 4 PROPUESTA 1 -->
+<section id="propuesta-1" data-title="Propuesta 1">
+  <div class="two">
+    <div class="rv" style="--d:1">
+      <div class="stage" id="stageA" style="background:#000;color:#fff"><svg class="logo" viewBox="0 -8 1166 332" role="img" aria-label="Logo Qypher, propuesta 1"><use href="#qy"/><use href="#rest"/></svg></div>
+      <div class="ctl" role="group" aria-label="Probar el logo sobre otro fondo" data-stage="stageA">
+        <span class="label">Probar sobre</span>
+        <button class="chip" data-bg="#FFFFFF" aria-pressed="false"><i style="background:#fff"></i>Blanco</button>
+        <button class="chip" data-bg="#000000" aria-pressed="true"><i style="background:#000"></i>Negro</button>
+        <button class="chip" data-bg="grad" aria-pressed="false"><i style="background:linear-gradient(120deg,#FC8017,#E44A03 55%,#000)"></i>Degradado</button>
+        <button class="chip" data-bg="#FC8017" aria-pressed="false"><i style="background:#FC8017"></i>Chispa</button>
+      </div>
+    </div>
+    <div class="why rv" style="--d:2">
+      <span class="tag">Propuesta 1</span>
+      <h2 class="t">Un logo nuevo</h2>
+      <p>La Q viene de Quantum, la mínima energía que provoca un cambio: una pregunta. Se une a la Y en un solo trazo porque cuestionar es el inicio de un recorrido que se comparte.</p>
+      <p>Sus formas redondeadas, sin esquinas duras, le dan cercanía y suavidad: una marca que invita a la conversación. Siguen la misma línea geométrica de Outfit.</p>
+      <p class="note"><b>Qué implica.</b> Cambia el logo. El color, la tipografía y la voz son los mismos en las dos propuestas.</p>
+      <button class="pill go" data-go="4">Ver versiones de uso →</button>
+    </div>
+  </div>
+</section>
+
+<!-- 5 VERSIONES -->
+<section id="versiones" data-title="Versiones de uso">
+  <div class="two">
+    <div class="rv" style="--d:1">
+      <div class="stage" id="stageV" style="background:#fff;color:#000">
+        <svg class="logo" id="vLogo" viewBox="0 -8 1166 332" role="img" aria-label="Logo nuevo"><use href="#qy"/><use href="#rest"/></svg>
+        <svg class="logo iso" id="vIso" viewBox="0 -8 500 332" role="img" aria-label="Isotipo" style="display:none"><use href="#qy"/></svg>
+      </div>
+      <div class="ctl" role="group" aria-label="Elegir versión" id="verCtl">
+        <span class="label">Versión</span>
+        <button class="chip" data-ver="logo" aria-pressed="true">Logo completo</button>
+        <button class="chip" data-ver="iso" aria-pressed="false">Isotipo</button>
+      </div>
+      <div class="ctl" role="group" aria-label="Probar sobre otro fondo" id="bgCtl">
+        <span class="label">Probar sobre</span>
+        <button class="chip" data-bg="#FFFFFF" aria-pressed="true"><i style="background:#fff"></i>Blanco</button>
+        <button class="chip" data-bg="#000000" aria-pressed="false"><i style="background:#000"></i>Negro</button>
+        <button class="chip" data-bg="grad" aria-pressed="false"><i style="background:linear-gradient(120deg,#FC8017,#E44A03 55%,#000)"></i>Degradado</button>
+        <button class="chip" data-bg="#FC8017" aria-pressed="false"><i style="background:#FC8017"></i>Chispa</button>
+      </div>
+    </div>
+    <div class="why rv" style="--d:2">
+      <span class="tag">Propuesta 1</span>
+      <h2 class="t">Versiones de uso</h2>
+      <p>Negativo sobre fondos oscuros, positivo sobre fondos claros e isotipo para espacios reducidos. Legible en tamaños pequeños y funcional en una sola tinta.</p>
+      <p class="note vcap" id="vcap" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 PROPUESTA 2 -->
+<section id="propuesta-2" data-title="Propuesta 2">
+  <div class="two">
+    <div class="rv" style="--d:1">
+      <div class="stage" id="stageB" style="background:#000;color:#fff">
+        <img src="assets/logo-actual.png" alt="Logo actual de Qypher" width="808" height="215">
+      </div>
+      <div class="ctl" role="group" aria-label="Probar el logo sobre otro fondo" data-stage="stageB">
+        <span class="label">Probar sobre</span>
+        <button class="chip" data-bg="#FFFFFF" aria-pressed="false"><i style="background:#fff"></i>Blanco</button>
+        <button class="chip" data-bg="#000000" aria-pressed="true"><i style="background:#000"></i>Negro</button>
+        <button class="chip" data-bg="grad" aria-pressed="false"><i style="background:linear-gradient(120deg,#FC8017,#E44A03 55%,#000)"></i>Degradado</button>
+        <button class="chip" data-bg="#FC8017" aria-pressed="false"><i style="background:#FC8017"></i>Chispa</button>
+      </div>
+    </div>
+    <div class="why rv" style="--d:2">
+      <span class="tag">Propuesta 2</span>
+      <h2 class="t">Conservar el logo actual</h2>
+      <p>Conservar el logo actual mantiene el legado de la marca y su origen. También es una ruta válida: técnicamente es un logo bien desarrollado y, desde el inicio del proceso, se contempló esta posibilidad.</p>
+      <p>En este caso, la renovación se concentra en el sistema que lo acompaña (color, tipografía, tono de voz y aplicaciones) y en usarlo siempre de forma correcta.</p>
+      <p class="note"><b>Qué implica.</b> El logo se queda como está. El color, la tipografía y la voz son los mismos en las dos propuestas, y entregamos reglas de uso para aplicarlo bien.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 TIPOGRAFÍA -->
+<section id="tipografia" data-title="Tipografía">
+  <h2 class="t rv" style="--d:0;font-size:clamp(30px,4vw,56px)">Familias tipográficas</h2>
+  <div class="fam rv" style="--d:1">
+    <div class="col">
+      <div class="aa o" aria-hidden="true">Aa</div>
+      <h3>Outfit</h3><div class="pw">Títulos · Bold y SemiBold · desde 24 px</div>
+      <p class="sus">Evolución de Montserrat, que ya usan para títulos: misma lógica geométrica, pero con círculos casi perfectos que dialogan con la Q del logo, y menos común en la categoría.</p>
+      <div class="live o" id="so" aria-live="polite">Brandbook Qypher</div>
+    </div>
+    <div class="plus" aria-hidden="true">+</div>
+    <div class="col">
+      <div class="aa i" aria-hidden="true">Aa</div>
+      <h3 class="i">Inter</h3><div class="pw">Texto · Regular, Medium y SemiBold · por debajo de 24 px</div>
+      <p class="sus">Evolución de Roboto, que ya usan para texto: el mismo papel neutro y legible en pantalla, con letras más abiertas a tamaños pequeños. No compite con el logo.</p>
+      <div class="live i" id="si" aria-live="polite">Brandbook Qypher</div>
+    </div>
+  </div>
+  <div class="tester rv" style="--d:2">
+    <label class="label" for="tt">Escribe tu propio texto y compáralas</label>
+    <input class="field" type="text" id="tt" placeholder="Brandbook Qypher" maxlength="60" autocomplete="off" spellcheck="false" aria-label="Texto para probar las tipografías">
+  </div>
+  <p class="lic">Licencia abierta (OFL) · Google Fonts</p>
+</section>
+
+<!-- 8 JERARQUÍA -->
+<section id="jerarquia" data-title="Jerarquía">
+  <div class="hier">
+    <div class="h-left">
+      <h2 class="t rv" style="--d:0;font-size:clamp(32px,4.2vw,60px)">Jerarquía tipográfica</h2>
+      <p class="lead rv mut" style="--d:1;margin-top:14px">Familia, tamaño y peso por nivel, con los tamaños mínimos de legibilidad.</p>
+      <div class="label rv" style="--d:2;margin-top:24px">Reglas de uso</div>
+      <ol class="rules rv" style="--d:2">
+        <li><b>1</b><span>Outfit desde 24 px, en SemiBold o Bold.</span></li>
+        <li><b>2</b><span>Inter por debajo de 24 px; el cuerpo, desde 16 px.</span></li>
+        <li><b>3</b><span>Interlineado de 140 a 150 %.</span></li>
+      </ol>
+    </div>
+    <div class="accs rv" style="--d:2" id="accs"></div>
+    <div class="leg acc rv" style="--d:3">
+      <div class="leg-h">
+        <label class="label" for="rg" style="margin:0">Escala de legibilidad</label>
+        <span class="badge" id="rgB">24 px · Outfit</span>
+      </div>
+      <input type="range" id="rg" min="12" max="72" value="24" aria-label="Tamaño en píxeles">
+      <div class="leg-s" id="rgS" style="font-size:24px;font-family:var(--f-title);font-weight:700">Título de ejemplo</div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 DECISIÓN -->
+<section id="decision" data-title="Decisión">
+  <h2 class="t rv" style="--d:0;font-size:clamp(32px,4.6vw,64px)">Decisión del logotipo</h2>
+  <p class="lead rv" style="--d:1;margin-top:12px">Elijan una propuesta y cuéntennos qué piensan. Si quieren, pueden volver a ver las dos páginas antes de decidir.</p>
+  <div class="who rv" style="--d:2" id="who" role="group" aria-label="Quién responde">
+    <span class="label">Responde</span>
+    <button class="chip" data-w="Adri" aria-pressed="false">Adri</button>
+    <button class="chip" data-w="Caro" aria-pressed="false">Caro</button>
+    <button class="chip" data-w="Adri y Caro" aria-pressed="false">Las dos</button>
+  </div>
+  <div class="dec rv" style="--d:3" role="group" aria-label="Elegir propuesta">
+    <button class="opt" data-v="A" aria-pressed="false">
+      <span class="ck"></span>
+      <span class="lg"><svg class="logo" viewBox="0 -8 1166 332" aria-hidden="true"><use href="#qy"/><use href="#rest"/></svg></span>
+      <span class="pn">Propuesta 1</span><span class="N">Un logo nuevo</span>
+      <span class="D">Q y Y unidas en un solo trazo, con formas redondeadas más cercanas. <b>Elíjanla si</b> quieren que la marca se sienta renovada desde el primer vistazo.</span>
+    </button>
+    <button class="opt" data-v="B" aria-pressed="false">
+      <span class="ck"></span>
+      <span class="lg"><img src="assets/logo-actual.png" alt=""></span>
+      <span class="pn">Propuesta 2</span><span class="N">Conservar el logo actual</span>
+      <span class="D">El logo de siempre, con un sistema nuevo alrededor y reglas de uso. <b>Elíjanla si</b> para ustedes el logo es parte de la historia y quieren mantenerlo.</span>
+    </button>
+  </div>
+  <div class="cm rv" style="--d:4">
+    <label class="label" for="cmt" style="margin:0">Comentarios <span class="mut" style="font-weight:400">(opcional)</span></label>
+    <textarea class="field" id="cmt" placeholder="Lo que les gustó, lo que les genera dudas, lo que cambiarían. Cualquier cosa sirve."></textarea>
+    <div class="act">
+      <button class="btn" id="sendMail" disabled>Enviar por correo</button>
+      <button class="pill" id="sendCopy" disabled>Copiar respuesta</button>
+      <span class="mut" id="sendHint" style="font-size:14.5px">Elijan una propuesta para continuar.</span>
+    </div>
+    <div class="ok" id="ok" role="status"><b>Listo.</b> Si no se abrió su correo, copien este mensaje y envíenlo a Pineapple.<pre id="okT"></pre></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  /* Destino de la respuesta de Adri y Caro. */
+  const CONTACTO={email:'hola@pineappleagency.com.co'};
+
+  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const secs=$$('main section'); let cur=0;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pad=n=>String(n).padStart(2,'0');
+  const GRAD='linear-gradient(120deg,#FC8017,#E44A03 55%,#000)';
+  const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast._);toast._=setTimeout(()=>t.classList.remove('show'),1800)};
+  const copy=async txt=>{try{await navigator.clipboard.writeText(txt);return true}catch(e){return false}};
+
+  /* escenas del fondo: el degradado se mueve distinto en cada página */
+  const scenes=[
+    {x1:'38%',y1:'-22%',x2:'-18%',y2:'42%',x3:'68%',y3:'58%',o3:.4,veil:.5},
+    {x1:'55%',y1:'-30%',x2:'-25%',y2:'30%',x3:'75%',y3:'65%',o3:.25,veil:.7},
+    {x1:'20%',y1:'-35%',x2:'60%',y2:'55%',x3:'-10%',y3:'60%',o3:.3,veil:.78},
+    {x1:'45%',y1:'-10%',x2:'-15%',y2:'55%',x3:'55%',y3:'45%',o3:.35,veil:.62},
+    {x1:'-5%',y1:'-30%',x2:'50%',y2:'50%',x3:'80%',y3:'0%',o3:.3,veil:.72},
+    {x1:'50%',y1:'-25%',x2:'-20%',y2:'45%',x3:'70%',y3:'62%',o3:.3,veil:.62},
+    {x1:'30%',y1:'-40%',x2:'70%',y2:'40%',x3:'0%',y3:'55%',o3:.28,veil:.8},
+    {x1:'60%',y1:'-35%',x2:'-10%',y2:'50%',x3:'40%',y3:'60%',o3:.3,veil:.8},
+    {x1:'35%',y1:'-18%',x2:'55%',y2:'48%',x3:'-5%',y3:'62%',o3:.45,veil:.55}
+  ];
+  const scene=i=>{const s=scenes[i]||scenes[0],r=document.documentElement.style;for(const k in s)r.setProperty('--'+k,s[k])};
+
+  /* navegación */
+  const dots=$('#dots'), ml=$('#menuList');
+  secs.forEach((s,i)=>{
+    const b=document.createElement('button');b.setAttribute('aria-label',(i+1)+'. '+s.dataset.title);b.innerHTML='<span>'+pad(i+1)+' · '+s.dataset.title+'</span>';b.onclick=()=>go(i);dots.appendChild(b);
+    const li=document.createElement('li'),a=document.createElement('a');a.href='#'+s.id;a.innerHTML='<small>'+pad(i+1)+'</small>'+s.dataset.title;a.onclick=e=>{e.preventDefault();closeMenu();go(i)};li.appendChild(a);ml.appendChild(li);
+  });
+  function go(i){i=Math.max(0,Math.min(secs.length-1,i));secs[i].scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}
+  $$('[data-go]').forEach(b=>b.onclick=()=>go(+b.dataset.go));
+  $('#prev').onclick=()=>go(cur-1);$('#next').onclick=()=>go(cur+1);
+
+  function setCur(i){
+    cur=i;scene(i);
+    $('#count').textContent=pad(i+1)+' / '+pad(secs.length);
+    $('#whereT').textContent=i===0?'Brandbook':secs[i].dataset.title;
+    $('#progress').style.transform='scaleX('+((i+1)/secs.length)+')';
+    $$('#dots button').forEach((b,j)=>b.setAttribute('aria-current',j===i));
+    $$('#menuList a').forEach((a,j)=>a.setAttribute('aria-current',j===i));
+    $('#prev').disabled=i===0;
+    const nx=$('#next');nx.disabled=i===secs.length-1;
+    nx.textContent=(secs[i+1]&&secs[i+1].id==='decision')?'Ir a decidir →':'Siguiente →';
+    if(history.replaceState)history.replaceState(null,'','#'+secs[i].id);
+  }
+  /* la página actual se calcula por posición de scroll: funciona también en páginas altas (móvil) */
+  let tick=false;
+  const onScroll=()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{tick=false;const y=innerHeight*.45;let idx=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<=y)idx=i});if(idx!==cur)setCur(idx)})};
+  addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);
+
+  const menu=$('#menu');
+  function openMenu(){menu.classList.add('open');$('#menuClose').focus()}
+  function closeMenu(){menu.classList.remove('open');$('#menuBtn').focus()}
+  $('#menuBtn').onclick=openMenu;$('#menuClose').onclick=closeMenu;
+  menu.addEventListener('click',e=>{if(e.target===menu)closeMenu()});
+  addEventListener('keydown',e=>{
+    if(e.target.matches('input,textarea'))return;
+    if(menu.classList.contains('open')){if(e.key==='Escape')closeMenu();return}
+    const k=e.key;
+    if(['ArrowDown','PageDown','ArrowRight'].includes(k)||(k===' '&&!e.shiftKey&&!e.target.matches('button'))){e.preventDefault();go(cur+1)}
+    else if(['ArrowUp','PageUp','ArrowLeft'].includes(k)||(k===' '&&e.shiftKey)){e.preventDefault();go(cur-1)}
+    else if(k==='Home'){e.preventDefault();go(0)} else if(k==='End'){e.preventDefault();go(secs.length-1)}
+    else if(k==='g'||k==='G'||k==='i'||k==='I'){openMenu()}
+  });
+  const hi=secs.findIndex(s=>s.id===location.hash.slice(1));
+  setCur(0);if(hi>0)setTimeout(()=>secs[hi].scrollIntoView(),50);
+
+  /* voz */
+  const traits=[['Cercana','Habla de tú a tú, sin tecnicismos.'],['Con criterio','Dice qué sí, qué no y cómo hacerlo bien.'],['Curiosa','Invita a preguntar, no a memorizar.'],['Directa','Nombra lo que pasa, sin rodeos ni dramatismo.'],['Con guiño','Humor inteligente, nunca burla.'],['Clara','Una idea por frase.']];
+  const tw=$('#traits'),td=$('#traitD');
+  traits.forEach((t,i)=>{const b=document.createElement('button');b.className='trait';b.textContent=t[0];b.setAttribute('aria-pressed',i===0);b.onclick=()=>pick(i);tw.appendChild(b)});
+  function pick(i){$$('.trait').forEach((b,j)=>b.setAttribute('aria-pressed',j===i));td.textContent=traits[i][1];td.classList.remove('swap');void td.offsetWidth;td.classList.add('swap')}
+  pick(0);
+
+  /* color: copiar HEX + contraste calculado */
+  const lum=h=>{const c=[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255).map(v=>v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4));return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+  const cr=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+  const cols=[
+    ['#FC8017','252 · 128 · 23','Chispa · Acento','Llamados a la acción, botones y detalles gráficos. Con texto en negro.'],
+    ['#E44A03','228 · 74 · 3','Brasa · Primario','Dinamismo, cercanía y acción. Con texto en blanco solo en títulos grandes.'],
+    ['#000000','0 · 0 · 0','Carbón · Neutro','Estructura, textos y respiración visual. Base de la mayoría de las piezas.'],
+    ['#FFFFFF','255 · 255 · 255','Luz · Neutro','Aire y contraste. Base de la mayoría de las piezas.']
+  ];
+  const sg=$('#swG');
+  cols.forEach((c,i)=>{
+    const w=document.createElement('div');w.className='rv';w.style.setProperty('--d',3+i*.5);
+    const txt=cr(c[0],'#000000')>=cr(c[0],'#FFFFFF')?'#000000':'#FFFFFF';
+    const r=cr(c[0],txt);
+    const b=document.createElement('button');b.className='sw'+(c[0]==='#FFFFFF'?' l':'');b.style.background=c[0];b.style.color=txt;
+    b.setAttribute('aria-label','Copiar '+c[0]+' '+c[2]);
+    b.innerHTML='<span class="ratio">'+(txt==='#000000'?'Texto negro':'Texto blanco')+' '+r.toFixed(1)+':1 '+(r>=7?'AAA':r>=4.5?'AA':r>=3?'AA grande':'—')+'</span><span><span class="hex">'+c[0]+'</span><span class="rgb">RGB '+c[1]+' · toca para copiar</span></span>';
+    b.onclick=async()=>{const ok=await copy(c[0]);toast(ok?'Copiado '+c[0]:c[0]+': selecciónalo y cópialo')};
+    const n=document.createElement('div');n.className='sw-n';n.innerHTML='<b>'+c[2]+'</b><span>'+c[3]+'</span>';
+    w.append(b,n);sg.appendChild(w);
+  });
+
+  /* propuestas: probar el logo sobre otro fondo */
+  $$('.ctl[data-stage]').forEach(g=>{
+    const st=document.getElementById(g.dataset.stage);
+    $$('.chip',g).forEach(c=>c.onclick=()=>{
+      $$('.chip',g).forEach(x=>x.setAttribute('aria-pressed',x===c));
+      const v=c.dataset.bg,img=st.querySelector('img');
+      const light=(v==='#FFFFFF'||v==='#FC8017');
+      st.style.background=v==='grad'?GRAD:v;st.style.color=light?'#000':'#fff';
+      if(img)img.style.filter=light?'invert(1)':'none';
+    });
+  });
+
+  /* versiones de uso: versión + fondo, con la regla de uso correspondiente */
+  const V={ver:'logo',bg:'#FFFFFF'};
+  const caps={
+    logo:{'#FFFFFF':['Positivo','logo en negro sobre fondos claros.'],'#000000':['Negativo','logo en blanco sobre fondos oscuros.'],'grad':['Negativo','logo en blanco sobre el degradado.'],'#FC8017':['Una tinta','logo en negro sobre Chispa.']},
+    iso:{'#FFFFFF':['Isotipo en color','isotipo Chispa sobre fondos claros.'],'#000000':['Isotipo en color','isotipo Chispa sobre fondos oscuros.'],'grad':['Isotipo en negativo','isotipo en blanco sobre el degradado.'],'#FC8017':['Isotipo en una tinta','isotipo en negro sobre Chispa.']}
+  };
+  function renderV(){
+    const st=$('#stageV'),b=V.bg;
+    st.style.background=b==='grad'?GRAD:b;
+    st.style.color=V.ver==='logo'?((b==='#FFFFFF'||b==='#FC8017')?'#000':'#fff'):((b==='#FFFFFF'||b==='#000000')?'#FC8017':(b==='#FC8017'?'#000':'#fff'));
+    $('#vLogo').style.display=V.ver==='logo'?'block':'none';
+    $('#vIso').style.display=V.ver==='iso'?'block':'none';
+    const c=caps[V.ver][b];$('#vcap').innerHTML='<b>'+c[0]+'.</b> Uso correcto: '+c[1];
+    $$('#verCtl .chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.ver===V.ver));
+    $$('#bgCtl .chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.bg===V.bg));
+  }
+  $$('#verCtl .chip').forEach(c=>c.onclick=()=>{V.ver=c.dataset.ver;renderV()});
+  $$('#bgCtl .chip').forEach(c=>c.onclick=()=>{V.bg=c.dataset.bg;renderV()});
+  renderV();
+
+  /* tipografía: el texto aparece en vivo dentro de cada familia */
+  const tt=$('#tt'),so=$('#so'),si=$('#si');
+  const upd=()=>{const v=tt.value.trim()||'Brandbook Qypher';so.textContent=v;si.textContent=v};
+  tt.addEventListener('input',upd);tt.addEventListener('keyup',upd);
+
+  /* jerarquía: niveles desplegables + control de legibilidad */
+  const lv=[
+    ['Display','Outfit Bold','80 px','o',80,700,'Portadas y cierres','Brandbook'],
+    ['Título','Outfit Bold','48 px','o',48,700,'Titulares de página','Título de página'],
+    ['Subtítulo','Outfit SemiBold','32 px','o',32,600,'Frases de apoyo','Subtítulo de sección'],
+    ['Tarjeta','Outfit SemiBold','24 px','o',24,600,'Bloques y módulos','Título de bloque'],
+    ['Cuerpo','Inter Regular','18 px','i',18,400,'Texto corrido · interlineado 150 %','Texto de párrafo para explicaciones y contenido extenso, con el interlineado definido.'],
+    ['Botón','Inter SemiBold','16 px','i',16,600,'Llamados a la acción','Botón de acción'],
+    ['Etiqueta','Inter SemiBold','13 px','i',13,600,'Mayúsculas · +12 % de espaciado','ETIQUETA DE CATEGORÍA']
+  ];
+  const accs=$('#accs'),rg=$('#rg'),rs=$('#rgS'),rb=$('#rgB');
+  function setScale(n){rg.value=n;const o=n>=24;rs.style.fontSize=n+'px';rs.style.fontFamily=o?'var(--f-title)':'var(--f-text)';rs.style.fontWeight=o?700:400;rs.textContent=o?'Título de ejemplo':'Texto de ejemplo para comprobar la legibilidad en pantalla.';rb.textContent=n+' px · '+(o?'Outfit':'Inter')}
+  function openAcc(i){$$('.acc',accs).forEach((a,j)=>{const on=j===i&&a.dataset.open!=='true';a.dataset.open=on;$('.acc-h',a).setAttribute('aria-expanded',on)});if($$('.acc',accs)[i].dataset.open==='true')setScale(lv[i][4])}
+  lv.forEach((l,i)=>{
+    if(i===4){const c=document.createElement('div');c.className='cut';c.innerHTML='<b>24 px</b> · Outfit por encima, Inter por debajo';accs.appendChild(c)}
+    const a=document.createElement('div');a.className='acc';a.dataset.open='false';
+    const cap=l[4]>=48?11:9;
+    a.innerHTML='<button class="acc-h" aria-expanded="false"><b>'+l[0]+'</b><span>'+l[1]+' · '+l[2]+'</span></button><div class="acc-p"><div><div class="acc-in"><div class="s '+l[3]+'" style="font-size:min('+l[4]+'px,'+cap+'vw);font-weight:'+l[5]+(l[0]==='Etiqueta'?';letter-spacing:.12em':'')+'">'+l[7]+'</div><div class="u">Uso: '+l[6]+'</div></div></div></div>';
+    $('.acc-h',a).onclick=()=>openAcc(lv.indexOf(l));
+    accs.appendChild(a);
+  });
+  rg.addEventListener('input',()=>setScale(+rg.value));
+  setScale(24);openAcc(1);
+
+  /* decisión */
+  let choice=null,who='';
+  try{choice=localStorage.getItem('qy-choice');who=localStorage.getItem('qy-who')||''}catch(e){}
+  const NAME={A:'Propuesta 1 · Un logo nuevo',B:'Propuesta 2 · Conservar el logo actual'};
+  const send=[$('#sendMail'),$('#sendCopy')];
+  function render(){
+    $$('.opt').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===choice));
+    $$('#who .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.w===who));
+    send.forEach(b=>b.disabled=!choice);
+    $('#sendHint').textContent=choice?'Tu elección: '+NAME[choice]+'.':'Elijan una propuesta para continuar.';
+  }
+  const save=()=>{try{choice?localStorage.setItem('qy-choice',choice):localStorage.removeItem('qy-choice');localStorage.setItem('qy-who',who)}catch(e){}};
+  $$('.opt').forEach(b=>b.onclick=()=>{choice=b.dataset.v;save();render()});
+  $$('#who .chip').forEach(c=>c.onclick=()=>{who=who===c.dataset.w?'':c.dataset.w;save();render()});
+  if(choice!=='A'&&choice!=='B')choice=null;
+  render();
+  const msg=()=>'Hola, Pineapple. Esta es nuestra respuesta sobre el logo de Qypher (Brandbook).\n\nElección: '+NAME[choice]+'\n'+(who?'Responde: '+who+'\n':'')+'Comentarios: '+($('#cmt').value.trim()||'sin comentarios')+'\n';
+  const done=t=>{$('#okT').textContent=t;$('#ok').classList.add('show')};
+  $('#sendMail').onclick=()=>{if(!choice)return;const t=msg();location.href='mailto:'+CONTACTO.email+'?subject='+encodeURIComponent('Decisión del logo · Qypher Brandbook')+'&body='+encodeURIComponent(t);done(t)};
+  $('#sendCopy').onclick=async()=>{if(!choice)return;const t=msg();const ok=await copy(t);done(t);toast(ok?'Respuesta copiada':'Selecciona el texto y cópialo')};
+
+  /* reveals: cada elemento aparece cuando entra en pantalla */
+  const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');rio.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px',threshold:.05});
+  $$('.rv,.lm').forEach(el=>rio.observe(el));
+})();
+</script>
+</body>
+</html>
