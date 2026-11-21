@@ -90,6 +90,9 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 .tag{display:inline-block;margin-bottom:16px;padding:8px 14px;border-radius:999px;font:600 14px/1 var(--f-text)}
 .note{margin-top:22px;padding:16px 20px;border-radius:18px;font-size:15.5px;line-height:1.55}
 .note b{font-weight:600}
+.qa{margin-top:16px}
+.acc-in p{font-size:15.5px;line-height:1.55}.acc-in p+p{margin-top:10px}
+.acc-in p b{font-weight:600}
 
 /* 1 portada */
 #portada h1{font-size:clamp(54px,12.5vw,210px);letter-spacing:-.03em;line-height:.94}
@@ -126,8 +129,8 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 .sw-n{margin-top:12px}.sw-n b{display:block;font:600 16px var(--f-title)}.sw-n span{display:block;font-size:14px;opacity:.78;line-height:1.45;margin-top:3px}
 
 /* propuestas y versiones: escenario + probar sobre */
-.two{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,4vw,70px);align-items:center}
-.stage{border-radius:30px;height:clamp(240px,46vh,440px);display:grid;place-items:center;transition:background .9s var(--ease),color .7s var(--ease);position:relative;overflow:hidden}
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,4vw,70px);align-items:start}
+.stage{border-radius:30px;height:clamp(220px,38vh,380px);display:grid;place-items:center;transition:background .9s var(--ease),color .7s var(--ease);position:relative;overflow:hidden}
 .stage .logo,.stage img{width:min(62%,640px);height:auto;display:block}
 .stage .iso{width:min(30%,240px)}
 .stage img{transition:filter .6s}
@@ -163,11 +166,8 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 .lic{margin-top:16px;font-size:12.5px;opacity:.6}
 
 /* 8 jerarquía */
-.hier{display:grid;grid-template-columns:.8fr 1.4fr;grid-template-rows:auto 1fr;column-gap:clamp(28px,5vw,80px);row-gap:22px;align-items:start}
-.h-left{grid-column:1;grid-row:1}
-.hier .accs{grid-column:2;grid-row:1/3}
-.hier .leg{grid-column:1;grid-row:2;margin-top:0;align-self:start}
-.rules{list-style:none;margin-top:12px;display:grid;gap:14px;font-size:clamp(15px,1.3vw,18px)}
+.hier{display:grid;grid-template-columns:.8fr 1.4fr;column-gap:clamp(28px,5vw,80px);align-items:start}
+.rules{list-style:none;display:grid;gap:12px;font-size:15.5px}
 .rules li{display:grid;grid-template-columns:30px 1fr;gap:12px}
 .rules b{font:700 26px/1 var(--f-title);color:var(--chispa)}
 .thr{margin-top:28px;display:flex;align-items:baseline;gap:14px}
@@ -195,7 +195,8 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 .leg-h{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
 .leg input[type=range]{width:100%;accent-color:var(--chispa);height:32px;margin-top:4px}
 .badge{padding:7px 13px;border-radius:999px;background:var(--chispa);color:#000;font:600 13px var(--f-text)}
-.leg-s{min-height:60px;display:flex;align-items:flex-end;line-height:1.12;transition:font-size .15s}
+.leg-s{min-height:60px;display:flex;align-items:flex-end;line-height:1.12;transition:font-size .15s;word-break:break-word}
+.acc-in input[type=range]{width:100%;accent-color:var(--chispa);height:32px}
 
 /* 9 decisión */
 .who{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:22px}
@@ -227,7 +228,7 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 @media (max-width:900px){
   html{scroll-snap-type:none}
   .voz,.two,.hier,.dec{grid-template-columns:1fr}
-  .hier{grid-template-rows:auto}.h-left,.hier .accs,.hier .leg{grid-column:1;grid-row:auto}
+  .thr{margin-top:14px}
   .top{background:rgba(0,0,0,.3);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%)}
   .where span,.dots{display:none}
   section{padding:88px var(--pad) 118px}
@@ -236,6 +237,12 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
   .voz h2.t{font-size:clamp(44px,13vw,72px)}
   .traits{grid-template-columns:1fr 1fr}
   .sw-g{grid-template-columns:1fr 1fr}.sw{aspect-ratio:1.15}
+  .two{display:flex;flex-direction:column;gap:0}
+  .two>.why{display:contents}
+  .two>.why>.tag{order:-3;align-self:flex-start;margin-bottom:12px}
+  .two>.why>h2{order:-2;margin-bottom:18px}
+  .two>div:first-child{order:-1;margin-bottom:20px}
+  .two>.why>*:not(.tag):not(h2){order:0}
   .stage{height:clamp(210px,30svh,300px);border-radius:24px}
   .stage .logo,.stage img{width:70%}
   .stage .iso{width:34%}
@@ -370,8 +377,14 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
       <span class="tag">Propuesta 1</span>
       <h2 class="t">Un logo nuevo</h2>
       <p>La Q viene de Quantum, la mínima energía que provoca un cambio: una pregunta. Se une a la Y en un solo trazo porque cuestionar es el inicio de un recorrido que se comparte.</p>
-      <p>Sus formas redondeadas, sin esquinas duras, le dan cercanía y suavidad: una marca que invita a la conversación. Siguen la misma línea geométrica de Outfit.</p>
       <p class="note"><b>Qué implica.</b> Cambia el logo. El color, la tipografía y la voz son los mismos en las dos propuestas.</p>
+      <div class="accs qa" id="qaP1" aria-label="Significado de la unión de la Q y la Y">
+        <div class="acc" data-open="true"><button class="acc-h" aria-expanded="true"><span class="acc-t"><b>¿Qué significa la unión de la Q y la Y?</b></span></button><div class="acc-p"><div><div class="acc-in"><p>Representa el concepto central de Qypher: atreverse a preguntar para descubrir nuevas posibilidades.</p><p>La <b>Q</b> simboliza la curiosidad, las preguntas y la búsqueda de conocimiento. La <b>Y</b> representa el camino, la conexión y la evolución hacia nuevas habilidades.</p><p>Al unirlas en un solo trazo, la pregunta deja de ser un punto de partida aislado: es el comienzo de un proceso de aprendizaje y transformación. <b>En Qypher, todo comienza con una pregunta.</b></p></div></div></div></div>
+        <div class="acc" data-open="false"><button class="acc-h" aria-expanded="false"><span class="acc-t"><b>¿Por qué no dejar las letras separadas?</b></span></button><div class="acc-p"><div><div class="acc-in"><p>Buscamos que el nombre tenga un elemento distintivo que vaya más allá de una tipografía convencional. La conexión genera una firma visual propia, mantiene la lectura del nombre y aporta personalidad a la marca.</p></div></div></div></div>
+        <div class="acc" data-open="false"><button class="acc-h" aria-expanded="false"><span class="acc-t"><b>¿Dificulta la lectura de Qypher?</b></span></button><div class="acc-p"><div><div class="acc-in"><p>La conexión es un recurso gráfico, no un obstáculo de lectura. Mantenemos reconocibles las estructuras de ambas letras y trabajamos la unión sin perder legibilidad.</p></div></div></div></div>
+        <div class="acc" data-open="false"><button class="acc-h" aria-expanded="false"><span class="acc-t"><b>¿Qué tiene que ver con la inteligencia artificial?</b></span></button><div class="acc-p"><div><div class="acc-in"><p>La inteligencia artificial está transformando la manera en que buscamos información, aprendemos y resolvemos problemas. La marca parte de esa curiosidad: atreverse a preguntar, explorar y descubrir nuevas posibilidades.</p></div></div></div></div>
+        <div class="acc" data-open="false"><button class="acc-h" aria-expanded="false"><span class="acc-t"><b>¿Cómo es su forma?</b></span></button><div class="acc-p"><div><div class="acc-in"><p>Sus formas redondeadas, sin esquinas duras, le dan cercanía y suavidad: una marca que invita a la conversación. Siguen la misma línea geométrica de Outfit.</p></div></div></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -431,23 +444,10 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
   <div class="hier">
     <div class="h-left">
       <h2 class="t rv" style="--d:0;font-size:clamp(32px,4.2vw,60px)">Jerarquía tipográfica</h2>
-      <p class="lead rv mut" style="--d:1;margin-top:14px">Familia, tamaño y peso por nivel, con los tamaños mínimos de legibilidad.</p>
-      <div class="label rv" style="--d:2;margin-top:24px">Reglas de uso</div>
-      <ol class="rules rv" style="--d:2">
-        <li><b>1</b><span>Outfit desde 24 px, en SemiBold o Bold.</span></li>
-        <li><b>2</b><span>Inter por debajo de 24 px; el cuerpo, desde 16 px.</span></li>
-        <li><b>3</b><span>Interlineado de 140 a 150 %.</span></li>
-      </ol>
+      <p class="lead rv mut" style="--d:1;margin-top:14px">Familia, tamaño y peso por nivel. Toca cada fila para ver el detalle.</p>
+      <div class="thr rv" style="--d:2"><b>24</b><span>px: donde se cambia de Outfit a Inter.</span></div>
     </div>
     <div class="accs rv" style="--d:2" id="accs"></div>
-    <div class="leg acc rv" style="--d:3">
-      <div class="leg-h">
-        <label class="label" for="rg" style="margin:0">Escala de legibilidad</label>
-        <span class="badge" id="rgB">24 px · Outfit</span>
-      </div>
-      <input type="range" id="rg" min="12" max="72" value="24" aria-label="Tamaño en píxeles">
-      <div class="leg-s" id="rgS" style="font-size:24px;font-family:var(--f-title);font-weight:700">Título de ejemplo</div>
-    </div>
   </div>
 </section>
 
@@ -639,19 +639,26 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
     ['Botón','Inter SemiBold','16 px','i',16,600,'Llamados a la acción','Botón de acción'],
     ['Etiqueta','Inter SemiBold','13 px','i',13,600,'Mayúsculas · +12 % de espaciado','ETIQUETA DE CATEGORÍA']
   ];
-  const accs=$('#accs'),rg=$('#rg'),rs=$('#rgS'),rb=$('#rgB');
-  function setScale(n){rg.value=n;const o=n>=24;rs.style.fontSize=n+'px';rs.style.fontFamily=o?'var(--f-title)':'var(--f-text)';rs.style.fontWeight=o?700:400;rs.textContent=o?'Título de ejemplo':'Texto de ejemplo para comprobar la legibilidad en pantalla.';rb.textContent=n+' px · '+(o?'Outfit':'Inter')}
-  function openAcc(i){$$('.acc',accs).forEach((a,j)=>{const on=j===i&&a.dataset.open!=='true';a.dataset.open=on;$('.acc-h',a).setAttribute('aria-expanded',on)});if($$('.acc',accs)[i].dataset.open==='true')setScale(lv[i][4])}
+  const accs=$('#accs');let rg,rs,rb;
+  function setScale(n){if(!rg)return;rg.value=n;const o=n>=24;rs.style.fontSize=n+'px';rs.style.fontFamily=o?'var(--f-title)':'var(--f-text)';rs.style.fontWeight=o?700:400;rs.textContent=o?'Título de ejemplo':'Texto de ejemplo para comprobar la legibilidad en pantalla.';rb.textContent=n+' px · '+(o?'Outfit':'Inter')}
+  function toggleAcc(host,el){const was=el.dataset.open==='true';$$('.acc',host).forEach(a=>{a.dataset.open='false';$('.acc-h',a).setAttribute('aria-expanded','false')});if(!was){el.dataset.open='true';$('.acc-h',el).setAttribute('aria-expanded','true')}return !was}
+  function mkAcc(head,body){const a=document.createElement('div');a.className='acc';a.dataset.open='false';a.innerHTML='<button class="acc-h" aria-expanded="false">'+head+'</button><div class="acc-p"><div><div class="acc-in">'+body+'</div></div></div>';return a}
+  const wire=(host,cb)=>$$('.acc',host).forEach((a,i)=>$('.acc-h',a).onclick=()=>{const on=toggleAcc(host,a);if(cb)cb(a,i,on)});
+  accs.appendChild(mkAcc('<span class="acc-t"><b>Reglas de uso</b><span class="sp">3 reglas</span></span>','<ol class="rules"><li><b>1</b><span>Outfit desde 24 px, en SemiBold o Bold.</span></li><li><b>2</b><span>Inter por debajo de 24 px; el cuerpo, desde 16 px.</span></li><li><b>3</b><span>Interlineado de 140 a 150 %.</span></li></ol>'));
   lv.forEach((l,i)=>{
     if(i===4){const c=document.createElement('div');c.className='cut';c.innerHTML='<b>24 px</b> · Outfit por encima, Inter por debajo';accs.appendChild(c)}
-    const a=document.createElement('div');a.className='acc';a.dataset.open='false';
     const cap=l[4]>=48?11:9;
-    a.innerHTML='<button class="acc-h" aria-expanded="false"><span class="acc-t"><b>'+l[0]+'</b><span class="sp">'+l[1]+' · '+l[2]+'</span></span></button><div class="acc-p"><div><div class="acc-in"><div class="s '+l[3]+'" style="font-size:min('+l[4]+'px,'+cap+'vw);font-weight:'+l[5]+(l[0]==='Etiqueta'?';letter-spacing:.12em':'')+'">'+l[7]+'</div><div class="u">Uso: '+l[6]+'</div></div></div></div>';
-    $('.acc-h',a).onclick=()=>openAcc(lv.indexOf(l));
-    accs.appendChild(a);
+    const a=mkAcc('<span class="acc-t"><b>'+l[0]+'</b><span class="sp">'+l[1]+' · '+l[2]+'</span></span>','<div class="s '+l[3]+'" style="font-size:min('+l[4]+'px,'+cap+'vw);font-weight:'+l[5]+(l[0]==='Etiqueta'?';letter-spacing:.12em':'')+'">'+l[7]+'</div><div class="u">Uso: '+l[6]+'</div>');
+    a.dataset.size=l[4];accs.appendChild(a);
   });
+  accs.appendChild(mkAcc('<span class="acc-t"><b>Escala de legibilidad</b><span class="sp" id="rgB">24 px · Outfit</span></span>','<input type="range" id="rg" min="12" max="72" value="24" aria-label="Tamaño en píxeles"><div class="leg-s" id="rgS" style="font-size:24px;font-family:var(--f-title);font-weight:700">Título de ejemplo</div>'));
+  rg=$('#rg');rs=$('#rgS');rb=$('#rgB');
+  wire(accs,(a,i,on)=>{if(on&&a.dataset.size)setScale(+a.dataset.size)});
   rg.addEventListener('input',()=>setScale(+rg.value));
-  setScale(24);openAcc(1);
+  setScale(24);
+  const first=$$('.acc',accs)[2];toggleAcc(accs,first);setScale(48);
+
+  wire($('#qaP1'));
 
   /* decisión */
   let choice=null,who='';
