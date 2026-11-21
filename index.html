@@ -91,6 +91,8 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 .note{margin-top:22px;padding:16px 20px;border-radius:18px;font-size:15.5px;line-height:1.55}
 .note b{font-weight:600}
 .qa{margin-top:16px}
+a.lk{color:#fff;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--chispa)}
+a.lk:hover{color:var(--chispa)}
 .acc-in p{font-size:15.5px;line-height:1.55}.acc-in p+p{margin-top:10px}
 .acc-in p b{font-weight:600}
 
@@ -421,14 +423,14 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
     <div class="col">
       <div class="aa o" aria-hidden="true">Aa</div>
       <h3>Outfit</h3><div class="pw">Títulos · Bold y SemiBold · desde 24 px</div>
-      <p class="sus">Evolución de Montserrat, que ya usan para títulos: misma lógica geométrica, pero con círculos casi perfectos que dialogan con la Q del logo, y menos común en la categoría.</p>
+      <p class="sus">Aporta la geometría: círculos casi perfectos que dialogan con la Q del logo y un trazo firme que da carácter a los titulares. Es menos común en la categoría.</p>
       <div class="live o" id="so" aria-live="polite">Brandbook Qypher</div>
     </div>
     <div class="plus" aria-hidden="true">+</div>
     <div class="col">
       <div class="aa i" aria-hidden="true">Aa</div>
       <h3 class="i">Inter</h3><div class="pw">Texto · Regular, Medium y SemiBold · por debajo de 24 px</div>
-      <p class="sus">Evolución de Roboto, que ya usan para texto: el mismo papel neutro y legible en pantalla, con letras más abiertas a tamaños pequeños. No compite con el logo.</p>
+      <p class="sus">Aporta la claridad: letras abiertas y un ritmo neutro que se leen bien en pantalla a tamaños pequeños. Deja que el protagonismo sea del logo y los títulos.</p>
       <div class="live i" id="si" aria-live="polite">Brandbook Qypher</div>
     </div>
   </div>
@@ -437,6 +439,7 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
     <input class="field" type="text" id="tt" placeholder="Brandbook Qypher" maxlength="60" autocomplete="off" spellcheck="false" aria-label="Texto para probar las tipografías">
   </div>
   <p class="lic">Licencia abierta (OFL) · Google Fonts</p>
+  <div class="accs qa rv" style="--d:3" id="qaTipo"><div class="acc" data-open="false"><button class="acc-h" aria-expanded="false"><span class="acc-t"><b>Equivalencia con las tipografías actuales</b></span></button><div class="acc-p"><div><div class="acc-in"><p>Outfit cumple el papel que hoy cumple Montserrat en los títulos, y Inter el de Roboto en el texto. Mantienen la lógica geométrica y la neutralidad que ya usaban, con mejor encaje con el logo nuevo y mayor legibilidad en pantalla.</p></div></div></div></div></div>
 </section>
 
 <!-- 8 JERARQUÍA -->
@@ -454,7 +457,7 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 <!-- 9 DECISIÓN -->
 <section id="decision" data-title="Decisión">
   <h2 class="t rv" style="--d:0;font-size:clamp(32px,4.6vw,64px)">Decisión del logotipo</h2>
-  <p class="lead rv" style="--d:1;margin-top:12px">Elijan una propuesta y cuéntennos qué piensan. Si quieren, pueden volver a ver las dos páginas antes de decidir.</p>
+  <p class="lead rv" style="--d:1;margin-top:12px">Elijan una propuesta y cuéntennos qué piensan. Antes de decidir, pueden volver a verlas: <a class="lk" href="#propuesta-1">Propuesta 1</a> · <a class="lk" href="#propuesta-2">Propuesta 2</a>.</p>
   <div class="who rv" style="--d:2" id="who" role="group" aria-label="Quién responde">
     <span class="label">Responde</span>
     <button class="chip" data-w="Adri" aria-pressed="false">Adri</button>
@@ -658,7 +661,7 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
   setScale(24);
   const first=$$('.acc',accs)[2];toggleAcc(accs,first);setScale(48);
 
-  wire($('#qaP1'));
+  wire($('#qaP1'));wire($('#qaTipo'));
 
   /* decisión */
   let choice=null,who='';
