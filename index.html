@@ -61,6 +61,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-a
 .nav-b{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:8px;align-items:center}
 .nav-b .pill{background:rgba(20,10,5,.62);-webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%)}
 .nav-b .pill[disabled]{opacity:0}
+.nav-b .mb{display:none}
 
 .menu{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.78);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);display:grid;align-content:center;padding:90px var(--pad) 40px;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s}
 .menu.open{opacity:1;visibility:visible}
@@ -140,7 +141,7 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 .why p+p{margin-top:14px}
 .why h2.t{font-size:clamp(30px,3.8vw,54px);margin-bottom:18px}
 .why .go{margin-top:20px}
-.vcap{margin-top:16px;font-size:15.5px;min-height:3em}
+.vcap{margin-top:14px;font-size:15px;min-height:3em;opacity:.9}
 .vcap b{font-weight:600}
 
 /* 7 tipografía */
@@ -175,9 +176,10 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 .accs{display:grid;gap:8px}
 .acc{border-radius:20px;overflow:hidden;transition:background-color .35s}
 .acc[data-open="true"]{background:var(--glass-on)}
-.acc-h{width:100%;display:flex;align-items:center;gap:14px;padding:12px 20px;min-height:52px;flex-wrap:wrap}
-.acc-h b{font:600 17px var(--f-title);flex:1;min-width:110px}
-.acc-h span{font-size:14px;opacity:.75}
+.acc-h{width:100%;display:flex;align-items:center;gap:14px;padding:12px 20px;min-height:52px}
+.acc-t{flex:1;min-width:0;display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.acc-h b{font:600 17px var(--f-title)}
+.acc-h .sp{font-size:14px;opacity:.75}
 .acc-h::after{content:"";width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .4s var(--ease);opacity:.7;margin-left:4px}
 .acc[data-open="true"] .acc-h::after{transform:rotate(-135deg) translateY(-2px)}
 .acc-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
@@ -245,8 +247,23 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
   .opt{padding:22px 20px}.opt .D{font-size:15.5px}
   .act{display:grid}.act .btn,.act .pill{justify-content:center}
   .toast{bottom:92px}
-  .menu{padding:92px var(--pad) 30px}.menu a{font-size:26px}
-  .nav-b .pill{padding:12px 20px}
+  .menu{padding:calc(84px + env(safe-area-inset-top)) var(--pad) calc(28px + env(safe-area-inset-bottom));align-content:start;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .menu h2{margin-bottom:8px}
+  .menu ol{grid-template-columns:1fr}
+  .menu li{border-bottom:1px solid rgba(255,255,255,.1)}
+  .menu li:last-child{border-bottom:0}
+  .menu a{font-size:24px;padding:14px 0;min-height:52px;align-items:center}
+  .menu .close{top:calc(14px + env(safe-area-inset-top))}
+  .nav-b{left:auto;right:max(12px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));transform:none;flex-direction:column;gap:10px}
+  .nav-b .pill{width:46px;height:46px;min-height:46px;padding:0;justify-content:center;border-radius:50%;font-size:20px;line-height:1}
+  .nav-b .tx,.nav-b .dk{display:none}.nav-b .mb{display:inline}
+  section{padding-right:calc(var(--pad) + 14px)}
+  .acc-t{flex-direction:column;align-items:flex-start;gap:1px}
+  .nav-b{transition:opacity .35s var(--ease)}
+  .nav-b.hide{opacity:0!important;pointer-events:none}
+  .nav-b{opacity:.6}.nav-b:active,.nav-b:focus-within{opacity:1}
+  .nav-b .pill{width:42px;height:42px;min-height:42px;background:rgba(20,10,5,.55)}
+  .leg input[type=range]{height:44px}
 }
 @media (hover:none){.trait:hover,.opt:hover,.sw:hover,.btn:hover{transform:none;box-shadow:none}}
 @media (prefers-reduced-motion:reduce){
@@ -270,15 +287,15 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 <header class="top">
   <div class="where"><b>Qypher</b><span id="whereT">Brandbook</span></div>
   <div class="top-r">
-    <span class="count" id="count" aria-live="polite">01 / 09</span>
+    <span class="count" id="count" aria-live="polite">01 / 08</span>
     <button class="pill" id="menuBtn" aria-haspopup="dialog" aria-controls="menu">Índice</button>
   </div>
 </header>
 
 <nav class="dots" id="dots" aria-label="Páginas"></nav>
 <div class="nav-b" role="group" aria-label="Anterior y siguiente">
-  <button class="pill" id="prev" aria-label="Página anterior">← Anterior</button>
-  <button class="pill" id="next" aria-label="Página siguiente">Siguiente →</button>
+  <button class="pill" id="prev" aria-label="Página anterior"><span class="dk">←</span><span class="mb" aria-hidden="true">↑</span><span class="tx">Anterior</span></button>
+  <button class="pill" id="next" aria-label="Página siguiente"><span class="tx">Siguiente</span><span class="dk">→</span><span class="mb" aria-hidden="true">↓</span></button>
 </div>
 
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Índice del brandbook">
@@ -327,37 +344,13 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
   <div class="sw-g" id="swG"></div>
 </section>
 
-<!-- 4 PROPUESTA 1 -->
+<!-- 4 PROPUESTA 1 (incluye versiones de uso) -->
 <section id="propuesta-1" data-title="Propuesta 1">
   <div class="two">
     <div class="rv" style="--d:1">
-      <div class="stage" id="stageA" style="background:#000;color:#fff"><svg class="logo" viewBox="0 -8 1166 332" role="img" aria-label="Logo Qypher, propuesta 1"><use href="#qy"/><use href="#rest"/></svg></div>
-      <div class="ctl" role="group" aria-label="Probar el logo sobre otro fondo" data-stage="stageA">
-        <span class="label">Probar sobre</span>
-        <button class="chip" data-bg="#FFFFFF" aria-pressed="false"><i style="background:#fff"></i>Blanco</button>
-        <button class="chip" data-bg="#000000" aria-pressed="true"><i style="background:#000"></i>Negro</button>
-        <button class="chip" data-bg="grad" aria-pressed="false"><i style="background:linear-gradient(120deg,#FC8017,#E44A03 55%,#000)"></i>Degradado</button>
-        <button class="chip" data-bg="#FC8017" aria-pressed="false"><i style="background:#FC8017"></i>Chispa</button>
-      </div>
-    </div>
-    <div class="why rv" style="--d:2">
-      <span class="tag">Propuesta 1</span>
-      <h2 class="t">Un logo nuevo</h2>
-      <p>La Q viene de Quantum, la mínima energía que provoca un cambio: una pregunta. Se une a la Y en un solo trazo porque cuestionar es el inicio de un recorrido que se comparte.</p>
-      <p>Sus formas redondeadas, sin esquinas duras, le dan cercanía y suavidad: una marca que invita a la conversación. Siguen la misma línea geométrica de Outfit.</p>
-      <p class="note"><b>Qué implica.</b> Cambia el logo. El color, la tipografía y la voz son los mismos en las dos propuestas.</p>
-      <button class="pill go" data-go="4">Ver versiones de uso →</button>
-    </div>
-  </div>
-</section>
-
-<!-- 5 VERSIONES -->
-<section id="versiones" data-title="Versiones de uso">
-  <div class="two">
-    <div class="rv" style="--d:1">
-      <div class="stage" id="stageV" style="background:#fff;color:#000">
-        <svg class="logo" id="vLogo" viewBox="0 -8 1166 332" role="img" aria-label="Logo nuevo"><use href="#qy"/><use href="#rest"/></svg>
-        <svg class="logo iso" id="vIso" viewBox="0 -8 500 332" role="img" aria-label="Isotipo" style="display:none"><use href="#qy"/></svg>
+      <div class="stage" id="stageV" style="background:#000;color:#fff">
+        <svg class="logo" id="vLogo" viewBox="0 -8 1166 332" role="img" aria-label="Logo Qypher, propuesta 1"><use href="#qy"/><use href="#rest"/></svg>
+        <svg class="logo iso" id="vIso" viewBox="0 -8 500 332" role="img" aria-label="Isotipo de la propuesta 1" style="display:none"><use href="#qy"/></svg>
       </div>
       <div class="ctl" role="group" aria-label="Elegir versión" id="verCtl">
         <span class="label">Versión</span>
@@ -366,17 +359,19 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
       </div>
       <div class="ctl" role="group" aria-label="Probar sobre otro fondo" id="bgCtl">
         <span class="label">Probar sobre</span>
-        <button class="chip" data-bg="#FFFFFF" aria-pressed="true"><i style="background:#fff"></i>Blanco</button>
-        <button class="chip" data-bg="#000000" aria-pressed="false"><i style="background:#000"></i>Negro</button>
+        <button class="chip" data-bg="#FFFFFF" aria-pressed="false"><i style="background:#fff"></i>Blanco</button>
+        <button class="chip" data-bg="#000000" aria-pressed="true"><i style="background:#000"></i>Negro</button>
         <button class="chip" data-bg="grad" aria-pressed="false"><i style="background:linear-gradient(120deg,#FC8017,#E44A03 55%,#000)"></i>Degradado</button>
         <button class="chip" data-bg="#FC8017" aria-pressed="false"><i style="background:#FC8017"></i>Chispa</button>
       </div>
+      <p class="vcap" id="vcap" aria-live="polite"></p>
     </div>
     <div class="why rv" style="--d:2">
       <span class="tag">Propuesta 1</span>
-      <h2 class="t">Versiones de uso</h2>
-      <p>Negativo sobre fondos oscuros, positivo sobre fondos claros e isotipo para espacios reducidos. Legible en tamaños pequeños y funcional en una sola tinta.</p>
-      <p class="note vcap" id="vcap" aria-live="polite"></p>
+      <h2 class="t">Un logo nuevo</h2>
+      <p>La Q viene de Quantum, la mínima energía que provoca un cambio: una pregunta. Se une a la Y en un solo trazo porque cuestionar es el inicio de un recorrido que se comparte.</p>
+      <p>Sus formas redondeadas, sin esquinas duras, le dan cercanía y suavidad: una marca que invita a la conversación. Siguen la misma línea geométrica de Outfit.</p>
+      <p class="note"><b>Qué implica.</b> Cambia el logo. El color, la tipografía y la voz son los mismos en las dos propuestas.</p>
     </div>
   </div>
 </section>
@@ -513,7 +508,6 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
     {x1:'55%',y1:'-30%',x2:'-25%',y2:'30%',x3:'75%',y3:'65%',o3:.25,veil:.7},
     {x1:'20%',y1:'-35%',x2:'60%',y2:'55%',x3:'-10%',y3:'60%',o3:.3,veil:.78},
     {x1:'45%',y1:'-10%',x2:'-15%',y2:'55%',x3:'55%',y3:'45%',o3:.35,veil:.62},
-    {x1:'-5%',y1:'-30%',x2:'50%',y2:'50%',x3:'80%',y3:'0%',o3:.3,veil:.72},
     {x1:'50%',y1:'-25%',x2:'-20%',y2:'45%',x3:'70%',y3:'62%',o3:.3,veil:.62},
     {x1:'30%',y1:'-40%',x2:'70%',y2:'40%',x3:'0%',y3:'55%',o3:.28,veil:.8},
     {x1:'60%',y1:'-35%',x2:'-10%',y2:'50%',x3:'40%',y3:'60%',o3:.3,veil:.8},
@@ -540,13 +534,17 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
     $$('#menuList a').forEach((a,j)=>a.setAttribute('aria-current',j===i));
     $('#prev').disabled=i===0;
     const nx=$('#next');nx.disabled=i===secs.length-1;
-    nx.textContent=(secs[i+1]&&secs[i+1].id==='decision')?'Ir a decidir →':'Siguiente →';
+    const last=secs[i+1]&&secs[i+1].id==='decision';
+    $('.tx',nx).textContent=last?'Ir a decidir':'Siguiente';
+    nx.setAttribute('aria-label',last?'Ir a decidir':'Página siguiente');
     if(history.replaceState)history.replaceState(null,'','#'+secs[i].id);
   }
   /* la página actual se calcula por posición de scroll: funciona también en páginas altas (móvil) */
   let tick=false;
   const onScroll=()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{tick=false;const y=innerHeight*.45;let idx=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<=y)idx=i});if(idx!==cur)setCur(idx)})};
   addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);
+  const navb=$('.nav-b');let hideT;
+  addEventListener('scroll',()=>{if(!matchMedia('(max-width:900px)').matches)return;navb.classList.add('hide');clearTimeout(hideT);hideT=setTimeout(()=>navb.classList.remove('hide'),700)},{passive:true});
 
   const menu=$('#menu');
   function openMenu(){menu.classList.add('open');$('#menuClose').focus()}
@@ -607,7 +605,7 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
   });
 
   /* versiones de uso: versión + fondo, con la regla de uso correspondiente */
-  const V={ver:'logo',bg:'#FFFFFF'};
+  const V={ver:'logo',bg:'#000000'};
   const caps={
     logo:{'#FFFFFF':['Positivo','logo en negro sobre fondos claros.'],'#000000':['Negativo','logo en blanco sobre fondos oscuros.'],'grad':['Negativo','logo en blanco sobre el degradado.'],'#FC8017':['Una tinta','logo en negro sobre Chispa.']},
     iso:{'#FFFFFF':['Isotipo en color','isotipo Chispa sobre fondos claros.'],'#000000':['Isotipo en color','isotipo Chispa sobre fondos oscuros.'],'grad':['Isotipo en negativo','isotipo en blanco sobre el degradado.'],'#FC8017':['Isotipo en una tinta','isotipo en negro sobre Chispa.']}
@@ -648,7 +646,7 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
     if(i===4){const c=document.createElement('div');c.className='cut';c.innerHTML='<b>24 px</b> · Outfit por encima, Inter por debajo';accs.appendChild(c)}
     const a=document.createElement('div');a.className='acc';a.dataset.open='false';
     const cap=l[4]>=48?11:9;
-    a.innerHTML='<button class="acc-h" aria-expanded="false"><b>'+l[0]+'</b><span>'+l[1]+' · '+l[2]+'</span></button><div class="acc-p"><div><div class="acc-in"><div class="s '+l[3]+'" style="font-size:min('+l[4]+'px,'+cap+'vw);font-weight:'+l[5]+(l[0]==='Etiqueta'?';letter-spacing:.12em':'')+'">'+l[7]+'</div><div class="u">Uso: '+l[6]+'</div></div></div></div>';
+    a.innerHTML='<button class="acc-h" aria-expanded="false"><span class="acc-t"><b>'+l[0]+'</b><span class="sp">'+l[1]+' · '+l[2]+'</span></span></button><div class="acc-p"><div><div class="acc-in"><div class="s '+l[3]+'" style="font-size:min('+l[4]+'px,'+cap+'vw);font-weight:'+l[5]+(l[0]==='Etiqueta'?';letter-spacing:.12em':'')+'">'+l[7]+'</div><div class="u">Uso: '+l[6]+'</div></div></div></div>';
     $('.acc-h',a).onclick=()=>openAcc(lv.indexOf(l));
     accs.appendChild(a);
   });
