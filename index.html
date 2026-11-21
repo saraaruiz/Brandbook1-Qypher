@@ -86,7 +86,9 @@ h2.t{font-size:clamp(32px,4.8vw,68px)}
 .logo{fill:currentColor;display:block;width:100%;height:auto}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:999px;background:var(--chispa);color:#000;font:600 16px/1 var(--f-text);min-height:52px;white-space:nowrap;transition:transform .4s var(--ease),box-shadow .4s,opacity .3s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(252,128,23,.32)}
-.btn[disabled]{opacity:.35;pointer-events:none}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.hint-s{flex-basis:100%;font-size:16px;font-weight:500;color:#fff}
+.hint-s::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--chispa);margin-right:10px;vertical-align:1px}
 .tag{display:inline-block;margin-bottom:16px;padding:8px 14px;border-radius:999px;font:600 14px/1 var(--f-text)}
 .note{margin-top:22px;padding:16px 20px;border-radius:18px;font-size:15.5px;line-height:1.55}
 .note b{font-weight:600}
@@ -482,9 +484,9 @@ a.lk:hover{color:var(--chispa)}
     <label class="label" for="cmt" style="margin:0">Comentarios <span class="mut" style="font-weight:400">(opcional)</span></label>
     <textarea class="field" id="cmt" placeholder="Lo que les gustó, lo que les genera dudas, lo que cambiarían. Cualquier cosa sirve."></textarea>
     <div class="act">
+      <span id="sendHint" class="hint-s" role="status">Elijan una propuesta para continuar.</span>
       <button class="btn" id="sendMail" disabled>Enviar por correo</button>
       <button class="pill" id="sendCopy" disabled>Copiar respuesta</button>
-      <span class="mut" id="sendHint" style="font-size:14.5px">Elijan una propuesta para continuar.</span>
     </div>
     <div class="ok" id="ok" role="status"><b>Listo.</b> Si no se abrió su correo, copien este mensaje y envíenlo a Pineapple.<pre id="okT"></pre></div>
   </div>
